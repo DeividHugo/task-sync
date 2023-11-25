@@ -4,7 +4,12 @@ function listTaskController(req, res) {
 }
 
 function createTaskController(req, res) {
-    res.send('Task Criada');
+    const content = req.body;
+
+    if (!content || !content.name || !content.password) {
+        return res.status(400).send("A solicitação deve incluir 'name' e 'password' no corpo.");
+    }
+    res.status(201).send(`${content.name} foi criado`);
 }
 
 function deleteTaskController(req, res) {
