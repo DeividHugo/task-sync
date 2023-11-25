@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  task-sync:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-sync
+    ports:
+      - 3000:3000
+
+  task-notifier:
+    build:
+      context: .
+      dockerfile: Dockerfile-task-notifier
+    container_name: task-notifier
+    ports:
+      - 3001:3001
+
+  task-sync-postgres: 
+    image: postgres:latest
+    container_name: task-sync-postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: task-sync
+      POSTGRES_USER: deivid
+      POSTGRES_PASSWORD: 123
